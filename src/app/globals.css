@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --background: 232 47% 4%; /* deep space navy */
+    --foreground: 0 0% 98%;
+    --card: 232 30% 8%;
+    --border: 0 0% 100%;
+    --muted: 230 15% 60%;
+
+    --font-sans: var(--font-inter);
+    --font-mono: var(--font-jetbrains);
+    --font-display: var(--font-space);
+  }
+
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-[#05060f] text-foreground font-sans antialiased;
+    background-image:
+      radial-gradient(60rem 40rem at 50% -10%, rgba(139, 92, 246, 0.12), transparent 60%),
+      radial-gradient(50rem 30rem at 100% 10%, rgba(34, 211, 238, 0.08), transparent 55%);
+    background-attachment: fixed;
+  }
+
+  /* Hide native cursor on fine pointers — replaced by CustomCursor */
+  @media (pointer: fine) {
+    * {
+      cursor: none;
+    }
+  }
+
+  /* Honor reduced-motion preference globally */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                           */
+/* ------------------------------------------------------------------ */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Animated gradient text helper */
+  .text-gradient {
+    @apply bg-neon-gradient bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-x;
+  }
+
+  /* Glow text shadow */
+  .glow-text {
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Custom scrollbar                                                    */
+/* ------------------------------------------------------------------ */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #05060f;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #22d3ee, #8b5cf6);
+  border-radius: 9999px;
+  border: 2px solid #05060f;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8b5cf6, #ec4899);
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #fff;
+}
