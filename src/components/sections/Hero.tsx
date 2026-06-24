@@ -13,11 +13,6 @@ import { profile, socials } from "@/lib/data";
 // The 3D orb is client-only and heavy → load it lazily without SSR.
 const NeuralOrb = dynamic(() => import("@/components/three/NeuralOrb"), {
   ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="h-40 w-40 animate-pulse-glow rounded-full bg-neon-violet/20 blur-2xl" />
-    </div>
-  ),
 });
 
 /** Domain positioning chips shown below the headline. */
@@ -53,8 +48,12 @@ export function Hero() {
     window.addEventListener("click", handleInteract, { passive: true });
     window.addEventListener("focusin", handleInteract, { passive: true });
 
+    // Load after 1 second automatically to start 3D animations
+    const timer = setTimeout(handleInteract, 1000);
+
     return () => {
       cleanup();
+      clearTimeout(timer);
     };
   }, []);
 
@@ -63,9 +62,91 @@ export function Hero() {
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden pt-24"
     >
-      {/* 3D orb — sits on the right on desktop, behind text on mobile */}
-      <div className="absolute inset-y-0 right-0 h-full w-full opacity-70 lg:w-1/2 lg:opacity-100">
-        {showOrb && <NeuralOrb />}
+      {/* 3D orb area — sits on the right on desktop, behind text on mobile */}
+      <div className="absolute inset-y-0 right-0 h-full w-full opacity-70 lg:w-1/2 lg:opacity-100 flex items-center justify-center">
+        {/* Instant lightweight SVG wireframe fallback (Server-rendered, displays instantly) */}
+        <div
+          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ${
+            showOrb ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <svg
+            viewBox="0 0 400 400"
+            className="h-80 w-80 animate-pulse-glow"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.8" />
+                <stop offset="40%" stopColor="#a855f7" stopOpacity="0.4" />
+                <stop offset="100%" stopColor="#05060f" stopOpacity="0" />
+              </radialGradient>
+              <radialGradient id="cyanGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
+              </radialGradient>
+            </defs>
+
+            {/* Glowing background */}
+            <circle cx="200" cy="200" r="100" fill="url(#innerGlow)" />
+            <circle cx="200" cy="200" r="60" fill="url(#innerGlow)" opacity="0.8" />
+            <circle cx="200" cy="200" r="150" fill="url(#cyanGlow)" opacity="0.15" />
+
+            {/* Core wireframe */}
+            <circle cx="200" cy="200" r="45" stroke="#a855f7" strokeWidth="1" strokeDasharray="3 3" fill="none" opacity="0.6" />
+            
+            {/* Geodesic wireframe connections */}
+            <g stroke="#22d3ee" strokeWidth="1.5" strokeOpacity="0.65" fill="none">
+              <polygon points="200,90 295,145 295,255 200,310 105,255 105,145" />
+              <polygon points="200,90 200,165 145,200 105,145" />
+              <polygon points="200,90 200,165 255,200 295,145" />
+              <polygon points="200,310 200,235 145,200 105,255" />
+              <polygon points="200,310 200,235 255,200 295,255" />
+              <line x1="200" y1="165" x2="145" y2="200" />
+              <line x1="200" y1="165" x2="255" y2="200" />
+              <line x1="200" y1="235" x2="145" y2="200" />
+              <line x1="200" y1="235" x2="255" y2="200" />
+              <line x1="145" y1="200" x2="255" y2="200" />
+              <line x1="105" y1="145" x2="145" y2="200" />
+              <line x1="295" y1="145" x2="255" y2="200" />
+              <line x1="105" y1="255" x2="145" y2="200" />
+              <line x1="295" y1="255" x2="255" y2="200" />
+            </g>
+
+            {/* Sphere vertices */}
+            <g fill="#22d3ee">
+              <circle cx="200" cy="90" r="4.5" className="animate-pulse" />
+              <circle cx="295" cy="145" r="4.5" />
+              <circle cx="295" cy="255" r="4.5" />
+              <circle cx="200" cy="310" r="4.5" />
+              <circle cx="105" cy="255" r="4.5" />
+              <circle cx="105" cy="145" r="4.5" />
+              <circle cx="200" cy="165" r="5" fill="#a855f7" />
+              <circle cx="200" cy="235" r="5" fill="#a855f7" />
+              <circle cx="145" cy="200" r="5" />
+              <circle cx="255" cy="200" r="5" />
+            </g>
+
+            {/* Tiny outer particles */}
+            <g fill="#3b82f6" opacity="0.6">
+              <circle cx="120" cy="100" r="2" />
+              <circle cx="280" cy="80" r="1.5" />
+              <circle cx="310" cy="180" r="2.5" />
+              <circle cx="90" cy="210" r="2" />
+              <circle cx="150" cy="300" r="1.5" />
+              <circle cx="250" cy="320" r="2" />
+            </g>
+          </svg>
+        </div>
+
+        {/* 3D Canvas wrapper */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-1000 ${
+            showOrb ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+        >
+          {showOrb && <NeuralOrb />}
+        </div>
       </div>
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-2">
@@ -211,8 +292,6 @@ export function Hero() {
             </div>
           </motion.div>
         </div>
-
-
       </div>
 
       {/* Scroll hint */}
