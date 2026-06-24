@@ -45,12 +45,6 @@ function TiltCard({ cert, index }: { cert: Certification; index: number }) {
       transition={{ duration: 0.45, delay: index * 0.06 }}
       className="group relative w-full rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-colors duration-300 hover:border-neon-violet/40 hover:shadow-glow-soft [transform-style:preserve-3d] sm:w-[300px]"
     >
-      {/* Floating award icon */}
-      <Award
-        className="absolute right-6 top-6 h-5 w-5 text-white/30 transition-all duration-300 group-hover:scale-110 group-hover:text-neon-cyan"
-        style={{ transform: "translateZ(30px)" }}
-      />
-
       {/* Real issuer logo on a clean white tile so any logo (incl. dark marks)
           stays crisp and consistent against the dark theme. */}
       <div
@@ -75,6 +69,12 @@ function TiltCard({ cert, index }: { cert: Certification; index: number }) {
       <span className="mt-3 inline-block rounded-full bg-white/5 px-2.5 py-0.5 text-xs text-neon-cyan">
         {cert.year}
       </span>
+
+      {/* Floating award icon - placed at bottom of JSX with high z-index and translateZ to prevent clipping behind 3D tilt plane */}
+      <Award
+        className="absolute right-6 top-6 z-10 h-5 w-5 text-white/50 transition-all duration-300 group-hover:scale-110 group-hover:text-neon-cyan"
+        style={{ transform: "translateZ(50px)" }}
+      />
     </motion.div>
   );
 }

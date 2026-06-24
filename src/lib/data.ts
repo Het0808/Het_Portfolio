@@ -347,8 +347,8 @@ export type Certification = {
 };
 
 export const certifications: Certification[] = [
-  { name: "NISM Certified", issuer: "NISM", year: "2024", accent: "cyan", logo: "/logos/nism.png" },
-  { name: "IRDAI Certified", issuer: "IRDAI", year: "2024", accent: "blue", logo: "/logos/irdai.png" },
+  { name: "NISM Certified", issuer: "NISM", year: "2025", accent: "cyan", logo: "/logos/nism.png" },
+  { name: "IRDAI Certified", issuer: "IRDAI", year: "2025", accent: "blue", logo: "/logos/irdai.png" },
   { name: "Anthropic MCP", issuer: "Anthropic", year: "2025", accent: "purple", logo: "/logos/anthropic.png" },
 ];
 
