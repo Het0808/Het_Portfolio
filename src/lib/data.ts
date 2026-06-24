@@ -266,6 +266,7 @@ export const projects: Project[] = [
       "Chunk + embed (bge) → Qdrant vector store → hybrid retrieval → cross-encoder re-rank → GPT-4o-mini with citation prompt.",
     tech: ["LangChain", "Qdrant", "RAG", "FastAPI", "React"],
     demo: "#",
+    github: "https://github.com/",
     accent: "cyan",
     featured: true,
   },
