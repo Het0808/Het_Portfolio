@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Mail } from "lucide-react";
@@ -21,6 +22,15 @@ const NeuralOrb = dynamic(() => import("@/components/three/NeuralOrb"), {
 
 export function Hero() {
   const role = useTypewriter(profile.roles);
+  const [showOrb, setShowOrb] = useState(false);
+
+  useEffect(() => {
+    // Wait until critical rendering path and hydration is done
+    const timer = setTimeout(() => {
+      setShowOrb(true);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section
@@ -29,7 +39,7 @@ export function Hero() {
     >
       {/* 3D orb — sits on the right on desktop, behind text on mobile */}
       <div className="absolute inset-y-0 right-0 h-full w-full opacity-70 lg:w-1/2 lg:opacity-100">
-        <NeuralOrb />
+        {showOrb && <NeuralOrb />}
       </div>
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-2">

@@ -1,22 +1,17 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { Skills } from "@/components/sections/Skills";
-import { CodeShowcase } from "@/components/sections/CodeShowcase";
-import { Projects } from "@/components/sections/Projects";
-import { Experience } from "@/components/sections/Experience";
-import { Certifications } from "@/components/sections/Certifications";
-import { Terminal } from "@/components/sections/Terminal";
-import { Contact } from "@/components/sections/Contact";
+import { ClientEffects } from "@/components/effects/ClientEffects";
+import dynamic from "next/dynamic";
 
-import { AiAssistant } from "@/components/chatbot/AiAssistant";
-import { BackgroundFX } from "@/components/effects/BackgroundFX";
-import { ParticleField } from "@/components/effects/ParticleField";
-import { MouseGlow } from "@/components/effects/MouseGlow";
-import { CustomCursor } from "@/components/effects/CustomCursor";
-import { ScrollProgress } from "@/components/effects/ScrollProgress";
-import { LoadingScreen } from "@/components/effects/LoadingScreen";
+const About = dynamic(() => import("@/components/sections/About").then((mod) => mod.About));
+const Skills = dynamic(() => import("@/components/sections/Skills").then((mod) => mod.Skills));
+const CodeShowcase = dynamic(() => import("@/components/sections/CodeShowcase").then((mod) => mod.CodeShowcase));
+const Projects = dynamic(() => import("@/components/sections/Projects").then((mod) => mod.Projects));
+const Experience = dynamic(() => import("@/components/sections/Experience").then((mod) => mod.Experience));
+const Certifications = dynamic(() => import("@/components/sections/Certifications").then((mod) => mod.Certifications));
+const Terminal = dynamic(() => import("@/components/sections/Terminal").then((mod) => mod.Terminal));
+const Contact = dynamic(() => import("@/components/sections/Contact").then((mod) => mod.Contact));
 
 import { profile } from "@/lib/data";
 
@@ -51,15 +46,8 @@ export default function Home() {
     <>
       <StructuredData />
 
-      {/* Global ambient effects (fixed, behind content) */}
-      <BackgroundFX />
-      <ParticleField />
-      <MouseGlow />
-
-      {/* Overlays */}
-      <LoadingScreen />
-      <ScrollProgress />
-      <CustomCursor />
+      {/* Global overlays & client-only ambient effects */}
+      <ClientEffects />
 
       <Navbar />
 
@@ -76,9 +64,6 @@ export default function Home() {
       </main>
 
       <Footer />
-
-      {/* Floating AI chatbot */}
-      <AiAssistant />
     </>
   );
 }
