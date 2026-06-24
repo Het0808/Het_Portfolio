@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Mail } from "lucide-react";
+import { ArrowRight, Download, Mail, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MagneticButton } from "@/components/effects/MagneticButton";
@@ -19,6 +19,15 @@ const NeuralOrb = dynamic(() => import("@/components/three/NeuralOrb"), {
     </div>
   ),
 });
+
+/** Domain positioning chips shown below the headline. */
+const domainTags = [
+  "AI/ML Engineer",
+  "GenAI",
+  "Agentic AI",
+  "RAG Systems",
+  "ML Ops",
+];
 
 export function Hero() {
   const role = useTypewriter(profile.roles);
@@ -44,52 +53,83 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-2">
         <div className="text-center lg:text-left">
+          {/* Availability badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Badge className="border-neon-cyan/30 text-neon-cyan">
-              <span className="mr-2 inline-block h-2 w-2 animate-pulse rounded-full bg-green-400" />
+            <Badge className="border-green-400/30 bg-green-400/10 text-green-400">
+              <span className="relative mr-2 flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-400" />
+              </span>
               Available for AI/ML roles & internships
             </Badge>
           </motion.div>
 
+          {/* Value-proposition headline */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-6 text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-7xl"
+            className="mt-6 text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
-            Hi, I&apos;m{" "}
+            I Build{" "}
             <span className="bg-neon-gradient bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-x">
-              Het Patel
+              Intelligent AI Systems
             </span>
           </motion.h1>
 
-          {/* Typing role line */}
-          <motion.p
+          {/* Name + typing role */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-5 h-8 text-lg font-medium text-white/80 sm:text-2xl"
+            transition={{ duration: 0.6, delay: 0.18 }}
+            className="mt-4"
           >
-            <span className="text-neon-cyan">{role}</span>
-            <span className="ml-1 inline-block w-[2px] animate-blink bg-neon-cyan align-middle">
-              &nbsp;
-            </span>
-          </motion.p>
+            <p className="text-xl font-semibold text-white/90 sm:text-2xl">
+              {profile.name}
+            </p>
+            <p className="mt-1.5 h-7 text-base font-medium text-white/70 sm:text-lg">
+              <span className="text-neon-cyan">{role}</span>
+              <span className="ml-1 inline-block w-[2px] animate-blink bg-neon-cyan align-middle">
+                &nbsp;
+              </span>
+            </p>
+          </motion.div>
 
+          {/* Domain positioning tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="mt-5 flex flex-wrap items-center justify-center gap-2 lg:justify-start"
+          >
+            {domainTags.map((tag, i) => (
+              <motion.span
+                key={tag}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 + i * 0.06 }}
+                className="rounded-full border border-neon-violet/25 bg-neon-violet/10 px-3 py-1 text-xs font-medium text-neon-violet"
+              >
+                {tag}
+              </motion.span>
+            ))}
+          </motion.div>
+
+          {/* Bio */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mx-auto mt-5 max-w-xl text-pretty text-base text-white/55 lg:mx-0"
+            className="mx-auto mt-5 max-w-xl text-pretty text-base text-white/60 lg:mx-0"
           >
             {profile.bio}
           </motion.p>
 
-          {/* CTAs */}
+          {/* CTAs — clear hierarchy: primary → secondary → tertiary */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,7 +139,7 @@ export function Hero() {
             <MagneticButton>
               <Button asChild size="lg">
                 <a href="#projects">
-                  View Projects <ArrowRight className="h-4 w-4" />
+                  <Sparkles className="h-4 w-4" /> View Projects <ArrowRight className="h-4 w-4" />
                 </a>
               </Button>
             </MagneticButton>
@@ -119,8 +159,7 @@ export function Hero() {
             </MagneticButton>
           </motion.div>
 
-          {/* Social icons — HIGHLIGHTED: larger tap targets, gradient ring,
-              always-on glow and a label so they grab attention immediately. */}
+          {/* Social icons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

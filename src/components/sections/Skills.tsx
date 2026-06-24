@@ -16,6 +16,13 @@ const accentText: Record<SkillCategory["accent"], string> = {
   pink: "text-neon-pink",
 };
 
+const accentHover: Record<SkillCategory["accent"], string> = {
+  cyan: "hover:border-neon-cyan/50 hover:shadow-glow-cyan",
+  blue: "hover:border-neon-blue/50 hover:shadow-glow-blue",
+  purple: "hover:border-neon-violet/50 hover:shadow-glow-purple",
+  pink: "hover:border-neon-pink/50 hover:shadow-glow-purple",
+};
+
 export function Skills() {
   return (
     <section id="skills" className="relative py-24 sm:py-32">
@@ -52,6 +59,9 @@ export function Skills() {
                     </h3>
                   </div>
 
+                  {/* Gradient separator */}
+                  <div className="mb-5 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
                   {/* Skills shown as clean chips — no percentages / progress bars. */}
                   <div className="flex flex-wrap gap-2.5">
                     {cat.skills.map((s, j) => (
@@ -61,7 +71,7 @@ export function Skills() {
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true, margin: "-40px" }}
                         transition={{ duration: 0.3, delay: j * 0.04 }}
-                        className="rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm font-medium text-white/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-neon-cyan/50 hover:text-white hover:shadow-glow-cyan"
+                        className={`rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm font-medium text-white/80 transition-all duration-300 hover:-translate-y-0.5 hover:text-white ${accentHover[cat.accent]}`}
                       >
                         {s.name}
                       </motion.span>

@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Award } from "lucide-react";
+import { Award, CheckCircle2 } from "lucide-react";
 import { certifications, type Certification } from "@/lib/data";
 
 /** Certification card with a cursor-driven 3D tilt + real issuer logo. */
@@ -65,10 +65,15 @@ function TiltCard({ cert, index }: { cert: Certification; index: number }) {
       >
         {cert.name}
       </h3>
-      <p className="mt-1 text-sm text-white/55">{cert.issuer}</p>
-      <span className="mt-3 inline-block rounded-full bg-white/5 px-2.5 py-0.5 text-xs text-neon-cyan">
-        {cert.year}
-      </span>
+      <span className="mt-1 text-sm text-white/55">{cert.issuer}</span>
+      <div className="mt-3 flex items-center gap-2">
+        <span className="inline-block rounded-full bg-white/5 px-2.5 py-0.5 text-xs text-neon-cyan">
+          {cert.year}
+        </span>
+        <span className="flex items-center gap-1 text-[11px] font-medium text-green-400">
+          <CheckCircle2 className="h-3 w-3" /> Verified
+        </span>
+      </div>
 
       {/* Floating award icon - placed at bottom of JSX with high z-index and translateZ to prevent clipping behind 3D tilt plane */}
       <Award

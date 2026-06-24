@@ -11,15 +11,17 @@ import { TerminalSquare } from "lucide-react";
 const banner = "het@ai-portfolio:~$ welcome — type 'help' to explore";
 
 const commands: Record<string, string> = {
-  help: "available: whoami · skills · projects · stack · contact · clear",
+  help: "available: whoami · education · skills · projects · stack · contact · clear",
   whoami:
     "Het Patel — AI/ML Engineer focused on GenAI, LLMs, RAG and multi-agent systems.",
+  education:
+    "• PG in AI / ML — IIT Gandhinagar (Feb 2026 — Present)\n• B.Tech in Information Technology — Dharmsinh Desai University (2020 — 2024)",
   skills:
     "Python · PyTorch · LangChain · LangGraph · RAG · FastAPI · Next.js · Docker · Azure",
   projects:
-    "AI Voice Hiring Assistant · NCERT RAG · AutoWorth AI · AlphaMind",
+    "AlphaMind · AutoWorth AI · Voice Hiring Assistant · NCERT RAG",
   stack: "py · torch · transformers · langgraph · fastapi · next · tailwind · docker",
-  contact: "het.patel@example.com — open to AI/ML internships & opportunities 🚀",
+  contact: "work.hetpatel2002@gmail.com — open to AI/ML internships & opportunities 🚀",
 };
 
 type Line = { cmd: string; out: string };
@@ -76,7 +78,7 @@ export function Terminal() {
                   <span className="text-neon-violet">het@ai</span>
                   <span className="text-white/40">:~$</span> {line.cmd}
                 </p>
-                <p className="text-white/60">{line.out}</p>
+                <p className="text-white/60 whitespace-pre-line">{line.out}</p>
               </div>
             ))}
 

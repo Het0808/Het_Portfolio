@@ -14,6 +14,13 @@ const typeIcon: Record<TimelineItem["type"], typeof Briefcase> = {
   Education: GraduationCap,
 };
 
+const typeAccent: Record<TimelineItem["type"], { border: string; text: string; shadow: string }> = {
+  Internship: { border: "border-neon-violet/50", text: "text-neon-violet", shadow: "shadow-glow-purple" },
+  Hackathon: { border: "border-neon-cyan/50", text: "text-neon-cyan", shadow: "shadow-glow-cyan" },
+  Achievement: { border: "border-neon-pink/50", text: "text-neon-pink", shadow: "shadow-glow-purple" },
+  Education: { border: "border-neon-cyan/50", text: "text-neon-cyan", shadow: "shadow-glow-cyan" },
+};
+
 /** Vertical timeline whose neon spine fills as you scroll through it. */
 export function Experience() {
   const ref = useRef<HTMLDivElement>(null);
@@ -58,7 +65,7 @@ export function Experience() {
                 >
                   {/* Node */}
                   <div className="absolute left-4 z-10 -translate-x-1/2 sm:left-1/2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full border border-neon-violet/50 bg-[#0a0b18] text-neon-cyan shadow-glow-purple">
+                    <div className={`flex h-8 w-8 items-center justify-center rounded-full border bg-[#0a0b18] ${typeAccent[item.type].border} ${typeAccent[item.type].text} ${typeAccent[item.type].shadow}`}>
                       <Icon className="h-4 w-4" />
                     </div>
                   </div>
@@ -74,14 +81,14 @@ export function Experience() {
                         <span className="rounded-full bg-white/5 px-2.5 py-0.5 text-xs text-neon-cyan">
                           {item.period}
                         </span>
-                        <span className="text-[11px] uppercase tracking-wide text-white/40">
+                        <span className={`rounded-full border px-2 py-0.5 text-[11px] uppercase tracking-wide ${typeAccent[item.type].border} ${typeAccent[item.type].text} bg-white/5`}>
                           {item.type}
                         </span>
                       </div>
                       <h3 className="mt-3 font-semibold text-white">
                         {item.title}
                       </h3>
-                      <p className="text-sm text-neon-violet">{item.org}</p>
+                      <p className="text-sm font-medium text-neon-violet">{item.org}</p>
                       <ul className="mt-3 space-y-1.5">
                         {item.points.map((p) => (
                           <li

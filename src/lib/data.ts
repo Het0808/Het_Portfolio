@@ -24,12 +24,12 @@ export const profile = {
     "NLP Engineer",
     "Building Intelligent Systems",
   ],
-  tagline: "AI/ML Engineer | GenAI Developer | Building Intelligent Systems",
+  tagline: "AI/ML Engineer | GenAI | Agentic AI | RAG | ML Systems",
   email: "work.hetpatel2002@gmail.com",
   location: "India · Open to Remote",
   availability: "Open to AI/ML internships and opportunities",
   resumeUrl: "/resume.pdf",
-  bio: "I design and ship intelligent systems — from retrieval-augmented LLM applications and multi-agent pipelines to fine-tuned models in production. I care about turning research-grade ideas into elegant, fast, and reliable products.",
+  bio: "I ship production-grade AI — RAG pipelines, multi-agent systems, and fine-tuned LLMs that solve real business problems. From research prototype to deployed product, I build intelligent systems that are fast, reliable, and impactful.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -154,10 +154,12 @@ export type Project = {
   title: string;
   category: "GenAI" | "NLP" | "Agents" | "MLOps" | "FinTech";
   tagline: string;
+  problem: string;
   description: string;
   features: string[];
   architecture: string;
   tech: string[];
+  impact: string;
   demo: string;
   github: string;
   accent: "cyan" | "blue" | "purple" | "pink";
@@ -170,6 +172,7 @@ export const projects: Project[] = [
     title: "AlphaMind",
     category: "Agents",
     tagline: "Autonomous Multi-Agent Investment Research Analyst.",
+    problem: "Manual financial research is slow, expensive, and doesn't scale across markets.",
     description:
       "A collaborative multi-agent framework designed to automate deep financial research, query real-time market data, and generate institutional-grade investment reports.",
     features: [
@@ -192,6 +195,7 @@ export const projects: Project[] = [
       "Financial APIs",
       "Docker",
     ],
+    impact: "Automates institutional-grade investment analysis with multi-agent coordination and RAG-powered insights.",
     demo: "#",
     github: "https://github.com/",
     accent: "purple",
@@ -202,6 +206,7 @@ export const projects: Project[] = [
     title: "AutoWorth AI",
     category: "MLOps",
     tagline: "Vehicle Residual Value Prediction System.",
+    problem: "Vehicle valuation is opaque and inconsistent — lacking explainability for business decisions.",
     description:
       "An end-to-end machine learning system that predicts vehicle residual values with high accuracy, featuring ensemble modeling, model explainability, and full lifecycle tracking.",
     features: [
@@ -223,6 +228,7 @@ export const projects: Project[] = [
       "Streamlit",
       "Docker",
     ],
+    impact: "Transparent, explainable predictions with SHAP + XGBoost/CatBoost ensemble and full MLflow lifecycle tracking.",
     demo: "#",
     github: "https://github.com/",
     accent: "pink",
@@ -233,6 +239,7 @@ export const projects: Project[] = [
     title: "AI Voice Hiring Assistant",
     category: "Agents",
     tagline: "Conversational screening that talks, listens, and scores.",
+    problem: "First-round screening is expensive, time-consuming, and inconsistent across interviewers.",
     description:
       "A real-time voice agent that conducts first-round interviews — streaming speech-to-text, an LLM interviewer with memory, and automated candidate scoring with structured feedback.",
     features: [
@@ -244,6 +251,7 @@ export const projects: Project[] = [
     architecture:
       "Whisper STT → LangGraph interviewer agent (GPT-4o) → rubric evaluator → Postgres + recruiter dashboard. Streaming over WebSockets.",
     tech: ["LangGraph", "OpenAI", "Whisper", "FastAPI", "Next.js", "PostgreSQL"],
+    impact: "Automated voice interviews with structured rubric scoring and recruiter dashboards.",
     demo: "#",
     github: "https://github.com/",
     accent: "purple",
@@ -254,6 +262,7 @@ export const projects: Project[] = [
     title: "NCERT RAG System",
     category: "GenAI",
     tagline: "Ask any textbook. Get cited, grounded answers.",
+    problem: "Students can't get reliable, source-cited answers from textbooks using generic AI tools.",
     description:
       "A retrieval-augmented tutor over NCERT textbooks with hybrid search, re-ranking, and inline citations so students can trust every answer.",
     features: [
@@ -265,6 +274,7 @@ export const projects: Project[] = [
     architecture:
       "Chunk + embed (bge) → Qdrant vector store → hybrid retrieval → cross-encoder re-rank → GPT-4o-mini with citation prompt.",
     tech: ["LangChain", "Qdrant", "RAG", "FastAPI", "React"],
+    impact: "Grounded, source-cited Q&A with hybrid retrieval, re-ranking, and faithfulness evaluation.",
     demo: "#",
     github: "https://github.com/",
     accent: "cyan",

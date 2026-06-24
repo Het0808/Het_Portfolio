@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Sparkles, Download } from "lucide-react";
 import { navLinks, profile } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -38,12 +38,21 @@ export function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  // Close mobile drawer on escape key
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-300",
         scrolled
-          ? "border-b border-white/10 bg-[#05060f]/70 backdrop-blur-xl"
+          ? "border-b border-white/[0.06] bg-[#05060f]/60 backdrop-blur-xl"
           : "bg-transparent"
       )}
     >
@@ -74,7 +83,7 @@ export function Navbar() {
                 {active === link.href && (
                   <motion.span
                     layoutId="nav-active"
-                    className="absolute inset-0 -z-10 rounded-lg bg-white/10"
+                    className="absolute inset-0 -z-10 rounded-lg bg-white/[0.08]"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -87,7 +96,7 @@ export function Navbar() {
         <div className="hidden lg:block">
           <Button asChild size="sm" variant="primary">
             <a href={profile.resumeUrl} download>
-              Resume
+              <Download className="h-3.5 w-3.5" /> Resume
             </a>
           </Button>
         </div>
@@ -102,6 +111,19 @@ export function Navbar() {
         </button>
       </nav>
 
+      {/* Mobile backdrop */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
       {/* Mobile drawer */}
       <AnimatePresence>
         {open && (
@@ -109,7 +131,7 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden border-t border-white/10 bg-[#05060f]/95 backdrop-blur-xl lg:hidden"
+            className="relative z-50 overflow-hidden border-t border-white/[0.06] bg-[#05060f]/95 backdrop-blur-xl lg:hidden"
           >
             <ul className="flex flex-col gap-1 px-5 py-4">
               {navLinks.map((link) => (
@@ -117,7 +139,12 @@ export function Navbar() {
                   <a
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-2.5 text-sm text-white/70 hover:bg-white/5 hover:text-white"
+                    className={cn(
+                      "block rounded-lg px-3 py-2.5 text-sm transition-colors",
+                      active === link.href
+                        ? "bg-white/[0.08] text-white font-medium"
+                        : "text-white/70 hover:bg-white/5 hover:text-white"
+                    )}
                   >
                     {link.label}
                   </a>
@@ -126,7 +153,7 @@ export function Navbar() {
               <li className="pt-2">
                 <Button asChild size="sm" className="w-full">
                   <a href={profile.resumeUrl} download>
-                    Download Resume
+                    <Download className="h-3.5 w-3.5" /> Download Resume
                   </a>
                 </Button>
               </li>

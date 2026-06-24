@@ -52,13 +52,14 @@ export function Contact() {
           >
             <GlassCard className="h-full p-7">
               {/* Availability */}
-              <div className="flex items-center gap-2 rounded-full border border-green-400/30 bg-green-400/10 px-3 py-1.5 text-sm text-green-400 w-fit">
+              <div className="flex items-center gap-2 rounded-full border border-green-400/30 bg-green-400/10 px-4 py-2 text-sm font-medium text-green-400 w-fit">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-400" />
                 </span>
                 Available for new opportunities
               </div>
+              <p className="mt-2 text-xs text-white/45">Typically responds within 24 hours</p>
 
               <div className="mt-6 space-y-4 text-sm">
                 <a
@@ -94,7 +95,7 @@ export function Contact() {
                   transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
                 />
                 <span className="absolute bottom-3 left-3 font-mono text-[11px] text-neon-cyan/70">
-                  ◉ online · responds fast
+                  ◉ online · responds within 24h
                 </span>
               </div>
 

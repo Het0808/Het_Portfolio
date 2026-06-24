@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Github, X, Cpu, Sparkles } from "lucide-react";
+import { ArrowUpRight, Github, X, Cpu, Sparkles, AlertCircle, TrendingUp } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -91,10 +91,15 @@ function ProjectCard({
       <h3 className="relative mt-3 text-lg font-semibold text-white">
         {project.title}
       </h3>
-      <p className="relative mt-1.5 text-sm text-white/55">{project.tagline}</p>
 
+      {/* Problem statement — immediately shows recruiters what this solves */}
+      <p className="relative mt-1.5 text-sm text-white/55 line-clamp-2">
+        {project.problem}
+      </p>
+
+      {/* Tech chips — show all, with wrapping */}
       <div className="relative mt-4 flex flex-wrap gap-1.5">
-        {project.tech.slice(0, 4).map((t) => (
+        {project.tech.map((t) => (
           <span
             key={t}
             className="rounded-md bg-white/5 px-2 py-0.5 text-[11px] text-white/60"
@@ -102,6 +107,14 @@ function ProjectCard({
             {t}
           </span>
         ))}
+      </div>
+
+      {/* Impact highlight */}
+      <div className="relative mt-4 rounded-lg border border-green-400/15 bg-green-400/[0.05] px-3 py-2">
+        <p className="flex items-start gap-1.5 text-xs font-medium text-green-400/90">
+          <TrendingUp className="mt-0.5 h-3 w-3 shrink-0" />
+          <span className="line-clamp-2">{project.impact}</span>
+        </p>
       </div>
 
       <span className="relative mt-5 inline-flex items-center gap-1 text-sm font-medium text-neon-cyan">
@@ -149,7 +162,15 @@ function ProjectModal({
         <h3 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
           {project.title}
         </h3>
-        <p className="mt-2 text-white/60">{project.description}</p>
+        <p className="mt-2 text-white/65">{project.description}</p>
+
+        {/* Problem */}
+        <div className="mt-6 rounded-xl border border-amber-400/15 bg-amber-400/[0.05] p-4">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-amber-400">
+            <AlertCircle className="h-4 w-4" /> Problem
+          </h4>
+          <p className="mt-1.5 text-sm text-white/65">{project.problem}</p>
+        </div>
 
         <div className="mt-6">
           <h4 className="text-sm font-semibold uppercase tracking-wide text-neon-cyan">
@@ -172,6 +193,14 @@ function ProjectModal({
           <p className="mt-2 font-mono text-sm leading-relaxed text-white/70">
             {project.architecture}
           </p>
+        </div>
+
+        {/* Impact */}
+        <div className="mt-6 rounded-xl border border-green-400/20 bg-green-400/[0.06] p-4">
+          <h4 className="flex items-center gap-2 text-sm font-semibold text-green-400">
+            <TrendingUp className="h-4 w-4" /> Impact
+          </h4>
+          <p className="mt-1.5 text-sm text-white/65">{project.impact}</p>
         </div>
 
         <div className="mt-6 flex flex-wrap gap-1.5">

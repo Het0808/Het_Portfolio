@@ -34,13 +34,21 @@ export function SectionHeading({
         {title}
       </motion.h2>
 
+      <motion.div
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6, delay: 0.08 }}
+        className="mx-auto mt-4 h-[2px] w-24 bg-gradient-to-r from-neon-cyan via-neon-violet to-neon-pink origin-center"
+      />
+
       {subtitle && (
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="mt-4 text-pretty text-base text-white/60"
+          className="mt-4 text-pretty text-base text-white/75"
         >
           {subtitle}
         </motion.p>

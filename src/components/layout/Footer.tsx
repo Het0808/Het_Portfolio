@@ -11,7 +11,7 @@ export function Footer() {
       {/* Ambient glow */}
       <div className="pointer-events-none absolute inset-x-0 -top-32 mx-auto h-64 w-2/3 rounded-full bg-neon-violet/20 blur-[120px]" />
 
-      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
+      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <motion.blockquote
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

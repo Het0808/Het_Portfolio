@@ -99,3 +99,20 @@
   background: rgba(139, 92, 246, 0.35);
   color: #fff;
 }
+
+/* Custom Accessibility & Spacing Utilities */
+@layer utilities {
+  .section-container {
+    @apply relative py-24 sm:py-32;
+  }
+}
+
+/* Contrast enhancement for readability */
+.text-white\/55 {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+.text-white\/60 {
+  color: rgba(255, 255, 255, 0.70) !important;
+}
+
