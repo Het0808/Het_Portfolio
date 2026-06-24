@@ -1,14 +1,3 @@
-"use client";
-
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { usePrefersReducedMotion } from "@/hooks/useMediaQuery";
-
-/**
- * GSAP-powered animated code snippet (bonus). The lines stagger in and a
- * cursor blinks — a small "how I build" vignette. GSAP is used here (rather
- * than Framer Motion) to showcase the timeline-based animation approach.
- */
 const code: { text: string; cls: string }[] = [
   { text: "from langchain.agents import create_agent", cls: "text-neon-violet" },
   { text: "from rag import retriever, reranker", cls: "text-neon-violet" },
@@ -23,42 +12,16 @@ const code: { text: string; cls: string }[] = [
   { text: "# => 🚀 deployed to production", cls: "text-white/40" },
 ];
 
+/**
+ * Animated code snippet component.
+ * Converted to a Server Component using CSS keyframe animations for high performance.
+ * This completely removes the GSAP library dependency.
+ */
 export function CodeShowcase() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const reduced = usePrefersReducedMotion();
-
-  useEffect(() => {
-    if (reduced || !containerRef.current) return;
-    const lines = containerRef.current.querySelectorAll("[data-line]");
-
-    // Animate only when the snippet scrolls into view (cheap IO trigger).
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        gsap.fromTo(
-          lines,
-          { opacity: 0, x: -16 },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.4,
-            stagger: 0.08,
-            ease: "power2.out",
-          }
-        );
-        io.disconnect();
-      },
-      { threshold: 0.3 }
-    );
-    io.observe(containerRef.current);
-    return () => io.disconnect();
-  }, [reduced]);
-
   return (
     <section className="relative py-12">
       <div className="mx-auto max-w-3xl px-5 sm:px-8">
         <div
-          ref={containerRef}
           className="overflow-hidden rounded-2xl border border-white/15 bg-[#0a0b18]/90 shadow-glow-soft backdrop-blur-xl"
         >
           <div className="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-2.5">
@@ -69,7 +32,14 @@ export function CodeShowcase() {
           </div>
           <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-6">
             {code.map((line, i) => (
-              <div key={i} data-line className={line.cls || "text-white/70"}>
+              <div
+                key={i}
+                className={`${line.cls || "text-white/70"} opacity-0 animate-code-line`}
+                style={{
+                  animationDelay: `${i * 0.08}s`,
+                  animationFillMode: "forwards",
+                }}
+              >
                 <span className="mr-4 select-none text-white/20">
                   {String(i + 1).padStart(2, "0")}
                 </span>

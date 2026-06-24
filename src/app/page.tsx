@@ -1,17 +1,10 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { BackgroundFX } from "@/components/effects/BackgroundFX";
+import { CodeShowcase } from "@/components/sections/CodeShowcase";
 import { ClientEffects } from "@/components/effects/ClientEffects";
-import dynamic from "next/dynamic";
-
-const About = dynamic(() => import("@/components/sections/About").then((mod) => mod.About));
-const Skills = dynamic(() => import("@/components/sections/Skills").then((mod) => mod.Skills));
-const CodeShowcase = dynamic(() => import("@/components/sections/CodeShowcase").then((mod) => mod.CodeShowcase));
-const Projects = dynamic(() => import("@/components/sections/Projects").then((mod) => mod.Projects));
-const Experience = dynamic(() => import("@/components/sections/Experience").then((mod) => mod.Experience));
-const Certifications = dynamic(() => import("@/components/sections/Certifications").then((mod) => mod.Certifications));
-const Terminal = dynamic(() => import("@/components/sections/Terminal").then((mod) => mod.Terminal));
-const Contact = dynamic(() => import("@/components/sections/Contact").then((mod) => mod.Contact));
+import { ClientContent } from "@/components/effects/ClientContent";
 
 import { profile } from "@/lib/data";
 
@@ -46,6 +39,9 @@ export default function Home() {
     <>
       <StructuredData />
 
+      {/* Static Server-Rendered Background Grid & Blobs */}
+      <BackgroundFX />
+
       {/* Global overlays & client-only ambient effects */}
       <ClientEffects />
 
@@ -53,14 +49,11 @@ export default function Home() {
 
       <main className="relative">
         <Hero />
-        <About />
-        <Skills />
-        <CodeShowcase />
-        <Projects />
-        <Experience />
-        <Certifications />
-        <Terminal />
-        <Contact />
+        
+        <ClientContent>
+          {/* CodeShowcase is a pure Server Component */}
+          <CodeShowcase />
+        </ClientContent>
       </main>
 
       <Footer />

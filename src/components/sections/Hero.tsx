@@ -34,11 +34,28 @@ export function Hero() {
   const [showOrb, setShowOrb] = useState(false);
 
   useEffect(() => {
-    // Wait until critical rendering path and hydration is done
-    const timer = setTimeout(() => {
+    const handleInteract = () => {
       setShowOrb(true);
-    }, 1500);
-    return () => clearTimeout(timer);
+      cleanup();
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("scroll", handleInteract);
+      window.removeEventListener("mousemove", handleInteract);
+      window.removeEventListener("touchstart", handleInteract);
+      window.removeEventListener("click", handleInteract);
+      window.removeEventListener("focusin", handleInteract);
+    };
+
+    window.addEventListener("scroll", handleInteract, { passive: true });
+    window.addEventListener("mousemove", handleInteract, { passive: true });
+    window.addEventListener("touchstart", handleInteract, { passive: true });
+    window.addEventListener("click", handleInteract, { passive: true });
+    window.addEventListener("focusin", handleInteract, { passive: true });
+
+    return () => {
+      cleanup();
+    };
   }, []);
 
   return (

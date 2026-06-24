@@ -64,17 +64,13 @@ export function Skills() {
 
                   {/* Skills shown as clean chips — no percentages / progress bars. */}
                   <div className="flex flex-wrap gap-2.5">
-                    {cat.skills.map((s, j) => (
-                      <motion.span
+                    {cat.skills.map((s) => (
+                      <span
                         key={s.name}
-                        initial={{ opacity: 0, scale: 0.85 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true, margin: "-40px" }}
-                        transition={{ duration: 0.3, delay: j * 0.04 }}
                         className={`rounded-lg border border-white/10 bg-white/5 px-3.5 py-2 text-sm font-medium text-white/80 transition-all duration-300 hover:-translate-y-0.5 hover:text-white ${accentHover[cat.accent]}`}
                       >
                         {s.name}
-                      </motion.span>
+                      </span>
                     ))}
                   </div>
                 </GlassCard>

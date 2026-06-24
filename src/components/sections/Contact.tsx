@@ -84,15 +84,13 @@ export function Contact() {
                 <div className="absolute h-32 w-32 rounded-full border border-neon-cyan/30" />
                 <div className="absolute h-20 w-20 rounded-full border border-neon-cyan/40" />
                 <div className="absolute h-2.5 w-2.5 rounded-full bg-neon-cyan shadow-glow-cyan" />
-                <motion.div
-                  className="absolute h-32 w-32 origin-bottom-left"
+                <div
+                  className="absolute h-32 w-32 origin-bottom-left animate-spin-radar"
                   style={{
                     background:
                       "conic-gradient(from 0deg, rgba(34,211,238,0.35), transparent 60deg)",
                     borderRadius: "9999px",
                   }}
-                  animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
                 />
                 <span className="absolute bottom-3 left-3 font-mono text-[11px] text-neon-cyan/70">
                   ◉ online · responds within 24h

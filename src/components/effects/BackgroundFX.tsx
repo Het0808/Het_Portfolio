@@ -1,10 +1,7 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 /**
  * Layered ambient background: a subtle grid overlay plus slow floating
  * gradient blobs. Sits behind all content (fixed, -z-20).
+ * Converted to a Server Component using CSS keyframe animations for high performance.
  */
 export function BackgroundFX() {
   return (
@@ -20,22 +17,10 @@ export function BackgroundFX() {
         }}
       />
 
-      {/* Floating gradient blobs */}
-      <motion.div
-        className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-neon-violet/20 blur-[120px]"
-        animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-        transition={{ repeat: Infinity, duration: 18, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute right-0 top-2/3 h-80 w-80 rounded-full bg-neon-cyan/15 blur-[120px]"
-        animate={{ x: [0, -50, 0], y: [0, -30, 0] }}
-        transition={{ repeat: Infinity, duration: 22, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute left-1/2 top-1/2 h-72 w-72 rounded-full bg-neon-blue/10 blur-[120px]"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
-      />
+      {/* Floating gradient blobs using hardware-accelerated CSS animations */}
+      <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-neon-violet/20 blur-[120px] animate-blob-1" />
+      <div className="absolute right-0 top-2/3 h-80 w-80 rounded-full bg-neon-cyan/15 blur-[120px] animate-blob-2" />
+      <div className="absolute left-1/2 top-1/2 h-72 w-72 rounded-full bg-neon-blue/10 blur-[120px] animate-blob-3" />
     </div>
   );
 }

@@ -116,3 +116,48 @@
   color: rgba(255, 255, 255, 0.70) !important;
 }
 
+/* High-Performance GPU-Accelerated CSS Keyframes */
+@keyframes float-blob-1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(60px, 40px); }
+}
+@keyframes float-blob-2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-50px, -30px); }
+}
+@keyframes float-blob-3 {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+@keyframes spin-radar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes slide-in-line {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-blob-1 {
+  animation: float-blob-1 18s ease-in-out infinite;
+}
+.animate-blob-2 {
+  animation: float-blob-2 22s ease-in-out infinite;
+}
+.animate-blob-3 {
+  animation: float-blob-3 14s ease-in-out infinite;
+}
+.animate-spin-radar {
+  animation: spin-radar 5s linear infinite;
+}
+.animate-code-line {
+  animation: slide-in-line 0.35s ease-out forwards;
+}
+
+

@@ -1,10 +1,7 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ArrowUp, Sparkles } from "lucide-react";
 import { socials, profile, navLinks } from "@/lib/data";
 
-/** Animated futuristic footer with an AI quote, links and social glow. */
+/** Static futuristic footer with an AI quote, links, and social glow. */
 export function Footer() {
   return (
     <footer className="relative overflow-hidden border-t border-white/10 bg-[#05060f]">
@@ -12,18 +9,13 @@ export function Footer() {
       <div className="pointer-events-none absolute inset-x-0 -top-32 mx-auto h-64 w-2/3 rounded-full bg-neon-violet/20 blur-[120px]" />
 
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-        <motion.blockquote
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mx-auto max-w-3xl text-center text-2xl font-semibold leading-snug text-white sm:text-3xl"
-        >
+        <blockquote className="mx-auto max-w-3xl text-center text-2xl font-semibold leading-snug text-white sm:text-3xl">
           “The best way to predict the future is to{" "}
           <span className="bg-neon-gradient bg-clip-text text-transparent">
             build it with intelligence
           </span>
           .”
-        </motion.blockquote>
+        </blockquote>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-8 border-t border-white/10 pt-10 md:flex-row md:items-start">
           {/* Brand */}
@@ -69,8 +61,7 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row">
           <p>
-            © {new Date().getFullYear()} {profile.name}. Built with Next.js,
-            Three.js & Framer Motion.
+            © {new Date().getFullYear()} {profile.name}. Built with Next.js & Tailwind CSS.
           </p>
           <a
             href="#home"

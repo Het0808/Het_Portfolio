@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { LoadingScreen } from "./LoadingScreen";
 
-const BackgroundFX = dynamic(() => import("./BackgroundFX").then((mod) => mod.BackgroundFX), { ssr: false });
 const ParticleField = dynamic(() => import("./ParticleField").then((mod) => mod.ParticleField), { ssr: false });
 const MouseGlow = dynamic(() => import("./MouseGlow").then((mod) => mod.MouseGlow), { ssr: false });
 const CustomCursor = dynamic(() => import("./CustomCursor").then((mod) => mod.CustomCursor), { ssr: false });
@@ -21,37 +20,37 @@ export function ClientEffects() {
       setLoadInteractive(true);
     }, 400);
 
-    // Stage 2: Load heavy components on first interaction OR after a fallback timeout
+    // Stage 2: Load heavy components on first explicit human interaction
     const loadHeavy = () => {
       setLoadDeferred((prev) => {
         if (prev) return prev;
-        // Clean up listeners
-        window.removeEventListener("scroll", loadHeavy);
-        window.removeEventListener("mousemove", loadHeavy);
-        window.removeEventListener("touchstart", loadHeavy);
+        cleanup();
         return true;
       });
+    };
+
+    const cleanup = () => {
+      window.removeEventListener("scroll", loadHeavy);
+      window.removeEventListener("mousemove", loadHeavy);
+      window.removeEventListener("touchstart", loadHeavy);
+      window.removeEventListener("click", loadHeavy);
+      window.removeEventListener("focusin", loadHeavy);
     };
 
     window.addEventListener("scroll", loadHeavy, { passive: true });
     window.addEventListener("mousemove", loadHeavy, { passive: true });
     window.addEventListener("touchstart", loadHeavy, { passive: true });
-
-    // Fallback timeout to ensure they load eventually
-    const timer2 = setTimeout(loadHeavy, 3500);
+    window.addEventListener("click", loadHeavy, { passive: true });
+    window.addEventListener("focusin", loadHeavy, { passive: true });
 
     return () => {
       clearTimeout(timer1);
-      clearTimeout(timer2);
-      window.removeEventListener("scroll", loadHeavy);
-      window.removeEventListener("mousemove", loadHeavy);
-      window.removeEventListener("touchstart", loadHeavy);
+      cleanup();
     };
   }, []);
 
   return (
     <>
-      <BackgroundFX />
       <LoadingScreen />
       
       {loadInteractive && <ScrollProgress />}
