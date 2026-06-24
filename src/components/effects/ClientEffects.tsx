@@ -20,7 +20,7 @@ export function ClientEffects() {
       setLoadInteractive(true);
     }, 400);
 
-    // Stage 2: Load heavy components on first explicit human interaction
+    // Stage 2: Load heavy components on first explicit human interaction OR after 4 seconds fallback
     const loadHeavy = () => {
       setLoadDeferred((prev) => {
         if (prev) return prev;
@@ -29,7 +29,10 @@ export function ClientEffects() {
       });
     };
 
+    const timer2 = setTimeout(loadHeavy, 4000);
+
     const cleanup = () => {
+      clearTimeout(timer2);
       window.removeEventListener("scroll", loadHeavy);
       window.removeEventListener("mousemove", loadHeavy);
       window.removeEventListener("touchstart", loadHeavy);
