@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { LoadingScreen } from "./LoadingScreen";
 
@@ -11,15 +12,58 @@ const ScrollProgress = dynamic(() => import("./ScrollProgress").then((mod) => mo
 const AiAssistant = dynamic(() => import("../chatbot/AiAssistant").then((mod) => mod.AiAssistant), { ssr: false });
 
 export function ClientEffects() {
+  const [loadInteractive, setLoadInteractive] = useState(false);
+  const [loadDeferred, setLoadDeferred] = useState(false);
+
+  useEffect(() => {
+    // Stage 1: Load lightweight interactive helpers (e.g. scroll indicator)
+    const timer1 = setTimeout(() => {
+      setLoadInteractive(true);
+    }, 400);
+
+    // Stage 2: Load heavy components on first interaction OR after a fallback timeout
+    const loadHeavy = () => {
+      setLoadDeferred((prev) => {
+        if (prev) return prev;
+        // Clean up listeners
+        window.removeEventListener("scroll", loadHeavy);
+        window.removeEventListener("mousemove", loadHeavy);
+        window.removeEventListener("touchstart", loadHeavy);
+        return true;
+      });
+    };
+
+    window.addEventListener("scroll", loadHeavy, { passive: true });
+    window.addEventListener("mousemove", loadHeavy, { passive: true });
+    window.addEventListener("touchstart", loadHeavy, { passive: true });
+
+    // Fallback timeout to ensure they load eventually
+    const timer2 = setTimeout(loadHeavy, 3500);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      window.removeEventListener("scroll", loadHeavy);
+      window.removeEventListener("mousemove", loadHeavy);
+      window.removeEventListener("touchstart", loadHeavy);
+    };
+  }, []);
+
   return (
     <>
       <BackgroundFX />
-      <ParticleField />
-      <MouseGlow />
       <LoadingScreen />
-      <ScrollProgress />
-      <CustomCursor />
-      <AiAssistant />
+      
+      {loadInteractive && <ScrollProgress />}
+      
+      {loadDeferred && (
+        <>
+          <ParticleField />
+          <MouseGlow />
+          <CustomCursor />
+          <AiAssistant />
+        </>
+      )}
     </>
   );
 }

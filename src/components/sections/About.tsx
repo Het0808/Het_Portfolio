@@ -55,7 +55,7 @@ export function About() {
                   src="/het-portrait.jpg"
                   alt="Het Patel"
                   fill
-                  priority
+                  loading="lazy"
                   sizes="(max-width: 768px) 90vw, 24rem"
                   className="object-cover"
                 />
